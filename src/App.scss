@@ -1,0 +1,385 @@
+@import './variables.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+html {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  color: $bittersweet;
+
+  * {
+    outline: none !important;
+    box-sizing: border-box;
+  }
+}
+
+.App {
+  height: 100vh;
+  width: 100%;
+  background: $raisinBlack;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    border: none;
+    margin-right: 10px;
+    outline: none;
+    padding: 0 12px;
+  }
+
+  .btn {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.6rem;
+    border-radius: .4rem;
+    background: $bittersweet;
+    color: white;
+    width: max-content;
+    border: none;
+    font-size: 1.6rem;
+    opacity: 1;
+    transition: all .2s ease-in-out;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: .1rem;
+    text-decoration: none;
+
+    &:not(.disabled):hover {
+      opacity: .9;
+    }
+  }
+
+  .outline {
+    background: transparent;
+    border: 1px solid $bittersweet;
+    color: $bittersweet;
+
+    &:hover {
+      background: $bittersweet;
+      color: white;
+    }
+  }
+
+  .disabled {
+    opacity: .2;
+    pointer-events: none;
+  }
+
+  .sign-out {
+    color: $arsenic;
+    border: 1px solid $arsenic;
+    background: transparent;
+
+    &:hover {
+      background: rgba($arsenic, .1);
+    }
+  }
+
+  .avatar {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 3rem;
+  }
+
+  .create-room-container {
+    .room {
+      background: white;
+      padding: 1.2rem 1.6rem;
+      margin-bottom: 1.2rem;
+      min-width: 30rem;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all $animTimingTwo;
+      border: .2rem solid transparent;
+      border-radius: 1.2rem 0 1.2rem 1.2rem;
+
+      &:nth-child(2n) {
+        border-radius: 0 1.2rem 1.2rem 1.2rem;
+      }
+    }
+
+    h3 {
+      margin: 0;
+    }
+
+    p {
+      color: $arsenic;
+      margin: 0;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .quick-info {
+      display: flex;
+      align-items: center;
+
+      .join {
+        margin-left: auto;
+        width: max-content;
+        height: 3.2rem;
+        font-size: 1.4rem;
+        background: $greenYellow;
+      }
+    }
+
+    .additional-info {
+      height: 0;
+      opacity: 0;
+      transition: all $animTimingTwo;
+    }
+
+    .expanded {
+      opacity: 1;
+      height: 5rem;
+    }
+
+    .password-input {
+      position: relative;
+
+      span {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1rem;
+      }
+
+      input {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  .create-room-form {
+    input {
+      margin-bottom: 20px;
+    }
+
+    .form-action {
+      display: flex;
+
+      .cancel-btn {
+        margin-left: 12px;
+        color: #d3d3d3;
+        background: $whiteSmoke;
+      }
+    }
+  }
+
+  .chat-room {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .profile {
+      padding: 1.6rem;
+      border-radius: .8rem;
+      background: white;
+      height: max-content;
+      margin-right: 2.4rem;
+      box-shadow: 0 0 .4rem 0 rgba($arsenic, .12);
+
+      .profile-info {
+        display: flex;
+        align-items: center;
+        color: $raisinBlack;
+
+        img {
+          margin-right: 1.6rem;
+        }
+
+        h2 {
+          font-size: 2rem;
+          margin: 0;
+        }
+
+        p {
+          font-size: 1.6rem;
+          margin: .4rem 0 0;
+        }
+      }
+
+      .actions {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+
+          & + .btn {
+            margin-top: 1.2rem;
+          }
+        }
+      }
+    }
+
+    .chat {
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+      height: calc(100vh - 9.6rem);
+      background: white;
+      border-radius: .8rem;
+      position: relative;
+      box-shadow: 0 0 .4rem 0 rgba($arsenic, .12);
+
+      .chat-header {
+        display: flex;
+        justify-content: center;
+        font-size: 2rem;
+        background: $cultured;
+        color: $raisinBlack;
+        padding: .8rem 2rem;
+        border-radius: .8rem .8rem 0 0;
+        font-weight: bold;
+      }
+
+      .messages {
+        overflow-x: hidden;
+        padding: 1.6rem 1.6rem 2rem;
+        margin-bottom: 6.6rem;
+        height: 100%;
+
+        .message {
+          display: flex;
+          margin-bottom: 1.6rem;
+
+          .message-body {
+            display: flex;
+            flex-direction: column;
+            color: $raisinBlack;
+
+            .display-name {
+              font-size: 1rem;
+              color: $arsenic;
+              text-align: right;
+              margin: .8rem 0 .4rem;
+            }
+
+            .text-message {
+              padding: 1.2rem 1.4rem;
+              font-size: 1.6rem;
+            }
+          }
+        }
+
+        @keyframes slideLeft {
+          0% {
+            margin-right: -5rem;
+            opacity: 0;
+          }
+          90% {
+            margin-right: 1rem;
+          }
+          100% {
+            margin-right: 0;
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideRight {
+          0% {
+            margin-left: -5rem;
+            opacity: 0;
+          }
+          90% {
+            margin-left: 1rem;
+          }
+          100% {
+            margin-left: 0;
+            opacity: 1;
+          }
+        }
+
+        .sent {
+          margin-right: -5rem;
+          opacity: 0;
+          flex-direction: row-reverse;
+          animation: slideLeft .3s forwards ease-in-out;
+
+          .avatar {
+            border: .2rem solid $greenYellow;
+          }
+
+          .message-body {
+            margin-right: 1.2rem;
+
+            .text-message {
+              background: $greenYellow;
+              border-radius: .8rem 0 .8rem .8rem;
+            }
+          }
+        }
+
+        .received {
+          margin-left: -5rem;
+          opacity: 0;
+          flex-direction: row;
+          animation: slideRight .3s forwards ease-in-out;
+
+          .avatar {
+            border: .2rem solid $vividSky;
+          }
+
+          .message-body {
+            margin-left: 1.2rem;
+
+            .display-name {
+              text-align: left;
+            }
+
+            .text-message {
+              background: $vividSky;
+              border-radius: 0 .8rem .8rem .8rem;
+            }
+          }
+        }
+      }
+
+      .chat-reply {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        transform: translate(-50%);
+        width: 100%;
+        padding: 1rem 1.6rem 1.6rem;
+        background: $cultured;
+        border-radius: 0 0 .8rem .8rem;
+
+        input {
+          border: .1rem solid $cultured;
+        }
+      }
+    }
+  }
+}
