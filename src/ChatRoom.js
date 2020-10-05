@@ -25,9 +25,9 @@ const ChatRoom = (props) => {
             await messagesRef.add({
                 text: cleanInput,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                session_superchat,
-                user_avatar,
-                user_display_name,
+                uid: session_superchat,
+                photoURL: user_avatar,
+                displayName: user_display_name,
             })
         }
         setFormValue('')
