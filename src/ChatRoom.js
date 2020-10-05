@@ -11,7 +11,7 @@ const sanitized = require('sanitize-html')
 
 const ChatRoom = (props) => {
     const {name, id} = useParams();
-    const [cookies, setCookie] = useCookies(['name'])
+    const [cookies, setCookie, removeCookie] = useCookies(['name'])
     const {session_superchat, user_avatar, user_display_name, user_email} = cookies
     const messagesRef = firestore.collection('rooms').doc(id).collection("messages")
     const query = messagesRef.orderBy('createdAt').limit(500)
@@ -39,6 +39,7 @@ const ChatRoom = (props) => {
     const handleSignOut = (e, auth) => {
         e.preventDefault()
         auth.signOut()
+        removeCookie('session_superchat')
         props.history.push("/")
     }
     useEffect(() => {
