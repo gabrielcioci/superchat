@@ -3,6 +3,7 @@ import {withRouter, useParams, Link} from "react-router-dom"
 import firebase from './firebase'
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import Message from './Message'
+import {useCookies} from "react-cookie";
 
 const auth = firebase.auth()
 const firestore = firebase.firestore()
@@ -10,7 +11,8 @@ const sanitized = require('sanitize-html')
 
 const ChatRoom = (props) => {
     const {name, id} = useParams();
-    const {uid, photoURL, displayName, email} = auth.currentUser
+    const [cookies, setCookie] = useCookies(['name'])
+    const {session_superchat, user_avatar, user_display_name, user_email} = cookies
     const messagesRef = firestore.collection('rooms').doc(id).collection("messages")
     const query = messagesRef.orderBy('createdAt').limit(500)
     const [messages] = useCollectionData(query, {idField: 'id'})
@@ -23,9 +25,9 @@ const ChatRoom = (props) => {
             await messagesRef.add({
                 text: cleanInput,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                uid,
-                photoURL,
-                displayName,
+                session_superchat,
+                user_avatar,
+                user_display_name,
             })
         }
         setFormValue('')
@@ -46,10 +48,10 @@ const ChatRoom = (props) => {
         <div className="chat-room">
             <div className="profile">
                 <div className="profile-info">
-                    <img src={photoURL} className="avatar" alt="profile-avatar"/>
+                    <img src={user_avatar} className="avatar" alt="profile-avatar"/>
                     <div>
-                        <h2>{displayName}</h2>
-                        <p>{email}</p>
+                        <h2>{user_display_name}</h2>
+                        <p>{user_email}</p>
                     </div>
                 </div>
                 <div className="actions">

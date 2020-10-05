@@ -1,15 +1,13 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
-import firebase from './firebase'
-import {useAuthState} from "react-firebase-hooks/auth";
+import {useCookies} from "react-cookie";
 
-const auth = firebase.auth();
 
 const UserPage = (props) => {
-    const [user] = useAuthState(auth);
+    const [cookies, setCookie] = useCookies(['name'])
     return (
         <>
-            {user ? props.children : props.history.push("/")}
+            {cookies.session_superchat ? props.children : props.history.push("/")}
         </>
     )
 }
