@@ -6,6 +6,7 @@ import Message from './Message'
 
 const auth = firebase.auth()
 const firestore = firebase.firestore()
+const sanitized = require('sanitize-html')
 
 const ChatRoom = (props) => {
     const {name, id} = useParams();
@@ -18,9 +19,10 @@ const ChatRoom = (props) => {
 
     const sendMessage = async (e) => {
         e.preventDefault();
-        if (formValue.trim().length > 0) {
+        const cleanInput = sanitized(formValue, {allowedAttributes: [], allowedTags: []})
+        if (cleanInput.trim().length > 0) {
             await messagesRef.add({
-                text: formValue,
+                text: cleanInput,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 uid,
                 photoURL,
@@ -47,7 +49,7 @@ const ChatRoom = (props) => {
                     </div>
                 </div>
                 <div className="actions">
-                    <button className="btn sign-out" onClick={() => auth.signOut()}>Sign out</button>
+                    <button className="btn gray" onClick={() => auth.signOut()}>Sign out</button>
                     <Link to="/" className="btn">Change room</Link>
                 </div>
             </div>
