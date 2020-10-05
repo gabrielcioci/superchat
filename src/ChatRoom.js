@@ -54,7 +54,7 @@ const ChatRoom = (props) => {
                 </div>
                 <div className="actions">
                     <div className="btn gray" onClick={(e) => handleSignOut(e, auth)}>Sign out</div>
-                    <Link to="/" className="btn">Change room</Link>
+                    <Link to="/rooms" className="btn">Change room</Link>
                 </div>
             </div>
             <div className="chat">
