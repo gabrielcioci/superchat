@@ -1,7 +1,8 @@
 import React from 'react';
 import {Route, BrowserRouter as Router} from "react-router-dom"
-import ChatRoom from "./ChatRoom";
+import Chat from "./Chat";
 import Login from "./Login";
+import CreateRoom from "./CreateRoom";
 import './App.scss';
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
             <div className="App">
                 <section>
                     <Route path="/" exact component={Login}/>
-                    <Route path="/room/:name/:id" exact component={ChatRoom}/>
+                    <Route path="/rooms" exact component={CreateRoom}/>
+                    <Route path="/room/:name/:id" exact component={Chat}/>
                 </section>
             </div>
         </Router>

@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom'
 import firebase from './firebase'
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import Room from "./Room";
+import UserPage from "./UserPage";
 
 const firestore = firebase.firestore();
 
@@ -39,22 +40,24 @@ const CreateRoom = () => {
     }
 
     return (
-        <div className="create-room-container">
-            {!showForm && <div className="rooms">
-                {rooms && rooms.map(room => <Room key={room.id} room={room}/>)}
-                <button className="btn create-room" onClick={(e) => handleCreate(e)}>New room</button>
-            </div>}
-            {showForm && <form className="create-room-form" onSubmit={createRoom}>
-                <input value={roomName} name="room_name" type="text" placeholder="Room Name"
-                       onChange={(e) => handleChange(e, setRoomName)}/>
-                <input value={roomPassword} name="room_password" type="text" placeholder="Room password"
-                       onChange={(e) => handleChange(e, setRoomPassword)}/>
-                <div className="form-action">
-                    <button type="submit" className="btn create-btn">Create</button>
-                    <button className="btn cancel-btn" onClick={(e) => setShowForm(false)}>Cancel</button>
-                </div>
-            </form>}
-        </div>
+        <UserPage>
+            <div className="create-room-container">
+                {!showForm && <div className="rooms">
+                    {rooms && rooms.map(room => <Room key={room.id} room={room}/>)}
+                    <button className="btn create-room" onClick={(e) => handleCreate(e)}>New room</button>
+                </div>}
+                {showForm && <form className="create-room-form" onSubmit={createRoom}>
+                    <input value={roomName} name="room_name" type="text" placeholder="Room Name"
+                           onChange={(e) => handleChange(e, setRoomName)}/>
+                    <input value={roomPassword} name="room_password" type="text" placeholder="Room password"
+                           onChange={(e) => handleChange(e, setRoomPassword)}/>
+                    <div className="form-action">
+                        <button type="submit" className="btn create-btn">Create</button>
+                        <button className="btn cancel-btn" onClick={(e) => setShowForm(false)}>Cancel</button>
+                    </div>
+                </form>}
+            </div>
+        </UserPage>
     )
 }
 

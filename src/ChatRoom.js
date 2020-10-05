@@ -16,7 +16,6 @@ const ChatRoom = (props) => {
     const [messages] = useCollectionData(query, {idField: 'id'})
     const [formValue, setFormValue] = useState('')
     const scrollToLastMessage = useRef()
-
     const sendMessage = async (e) => {
         e.preventDefault();
         const cleanInput = sanitized(formValue, {allowedAttributes: [], allowedTags: []})
@@ -35,6 +34,11 @@ const ChatRoom = (props) => {
     const handleChange = (e) => {
         setFormValue(e.target.value)
     }
+    const handleSignOut = (e, auth) => {
+        e.preventDefault()
+        auth.signOut()
+        props.history.push("/")
+    }
     useEffect(() => {
         scrollToLastMessage.current.scrollIntoView({behavior: 'smooth'});
     })
@@ -49,7 +53,7 @@ const ChatRoom = (props) => {
                     </div>
                 </div>
                 <div className="actions">
-                    <button className="btn gray" onClick={() => auth.signOut()}>Sign out</button>
+                    <div className="btn gray" onClick={(e) => handleSignOut(e, auth)}>Sign out</div>
                     <Link to="/" className="btn">Change room</Link>
                 </div>
             </div>
